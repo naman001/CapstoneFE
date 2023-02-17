@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form method="post" enctype="multipart/form-data" asp-action="Upload">
+    <div class="form-group">
+        <label for="file">Select an image to upload:</label>
+        <input type="file" name="file" class="form-control-file" required onchange="previewImage(this);">
+    </div>
+    <img id="preview" style="display:none;">
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var previewElement = document.getElementById("preview");
+                previewElement.src = e.target.result;
+                previewElement.style.display = "block";
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
